@@ -1,0 +1,15 @@
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# NLTK data
+nltk_data/
+
+# OS
+.DS_Store

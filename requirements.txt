@@ -1,0 +1,4 @@
+biopython
+nltk
+scikit-learn
+streamlit

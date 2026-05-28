@@ -8,8 +8,9 @@ __pycache__/
 *.pyc
 *.pyo
 
-# NLTK data
-nltk_data/
+# Data
+data/raw/
+data/processed/
 
 # OS
 .DS_Store

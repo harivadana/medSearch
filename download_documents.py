@@ -1,4 +1,3 @@
-# src/download_pubmed.py
 from Bio import Entrez, Medline
 import json
 import os

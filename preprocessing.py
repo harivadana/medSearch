@@ -2,12 +2,15 @@ import re
 import nltk
 
 from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import wordpunct_tokenize
 
-nltk.download("punkt", quiet=True)
-nltk.download("stopwords", quiet=True)
 
-STOP_WORDS = set(stopwords.words("english"))
+try:
+    STOP_WORDS = set(stopwords.words("english"))
+except LookupError:
+    nltk.download("stopwords")
+    STOP_WORDS = set(stopwords.words("english"))
+
 
 CUSTOM_STOP_WORDS = {
     "et",
@@ -37,8 +40,8 @@ def preprocess_text(text):
     # Remove punctuation/numbers
     text = re.sub(r"[^a-z\s]", " ", text)
 
-    # Tokenize
-    tokens = word_tokenize(text)
+    # Tokenize using NLTK without requiring punkt or punkt_tab
+    tokens = wordpunct_tokenize(text)
 
     # Remove stop words + short words
     clean_tokens = [
@@ -48,6 +51,7 @@ def preprocess_text(text):
     ]
 
     return clean_tokens
+
 
 _scispacy_nlp = None
 
@@ -66,6 +70,8 @@ def get_scispacy_pipeline():
 
     except OSError as exc:
         raise RuntimeError(
+            "SciSpaCy model 'en_core_sci_sm' is not installed. "
+            "Please install it using the command in README.md."
         ) from exc
 
     return _scispacy_nlp
